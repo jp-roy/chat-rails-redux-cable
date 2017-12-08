@@ -3,10 +3,6 @@ class Api::V1::ChannelsController < Api::V1::BaseController
     @channel = Channel.create(channel_params)
   end
 
-  def index
-    @channels = Channel.all
-  end
-
   private
 
   def channel_params
