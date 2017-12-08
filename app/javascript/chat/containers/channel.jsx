@@ -27,14 +27,14 @@ class Channel extends Component {
     };
   }
 
-  componentDidMount() {
-    const intervalId = setInterval(() => this.props.getMessages(this.props.selectedChannel), 3000);
-    this.setState({ intervalId: intervalId });
-  }
+  // componentDidMount() {
+  //   const intervalId = setInterval(() => this.props.getMessages(this.props.selectedChannel), 3000);
+  //   this.setState({ intervalId: intervalId });
+  // }
 
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.state.intervalId);
+  // }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
@@ -70,9 +70,7 @@ class Channel extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedChannel: state.selectedChannel,
-    messages: state.messages,
-    currentUsername: state.currentUsername
+    messages: state.messages
   };
 }
 
