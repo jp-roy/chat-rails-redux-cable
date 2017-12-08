@@ -39,7 +39,6 @@
   }
 
   .navbar-links {
-    color: #0081A2;
     padding-left: 25px;
     padding-right: 25px;
     background-color: #F6F3E7;
@@ -49,5 +48,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    a {
+      color: #0081A2;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 }

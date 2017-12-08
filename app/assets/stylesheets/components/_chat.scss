@@ -2,9 +2,8 @@ body {
   font-family: Helvetica;
 }
 .app {
-  margin-bottom: 20px;
   display: flex;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 70px);
 
   .logo {
     background-color: #0081A2;
@@ -55,7 +54,7 @@ body {
     padding-bottom: 25px;
     background-color: #F6F3E7;
     flex-grow: 1;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
 

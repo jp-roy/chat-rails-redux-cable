@@ -43,7 +43,6 @@ class Channel extends Component {
   render() {
     return (
       <div className="channel">
-        <h1>Channel {this.props.selectedChannel}</h1>
         <div className="message-list" ref={(div) => { this.messageList = div; }}>
           {this.props.messages.map((message) =>
             <div className="message" key={message.created_at}>
