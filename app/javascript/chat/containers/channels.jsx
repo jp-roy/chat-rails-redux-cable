@@ -9,7 +9,6 @@ class Channels extends Component {
   render() {
     return (
       <div className="channels">
-        <h1>Redux chat</h1>
         {this.props.channels.map((channel) =>
           <p key={channel}
              onClick={() => this.props.selectChannel(channel)}

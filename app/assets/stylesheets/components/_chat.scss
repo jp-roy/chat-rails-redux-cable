@@ -2,7 +2,6 @@ body {
   font-family: Helvetica;
 }
 .app {
-  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   height: calc(100vh - 40px);
@@ -12,16 +11,6 @@ body {
     flex: 0 0 80px;
     height: 100%;
     text-align: center;
-
-    &:before {
-      content: '\F086';
-      position: absolute;
-      top: 25px;
-      left: 20px;
-      font-family: FontAwesome;
-      font-size: 40px;
-      color: #F6F3E7;
-    }
   }
 
   .channels {
