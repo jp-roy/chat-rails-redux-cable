@@ -18,29 +18,32 @@ body {
     opacity: 0.85;
     flex: 0 0 200px;
     height: 100%;
-    color: #F6F3E7;
 
-    h1 {
-      font-size: 30px;
-    }
+    a {
+      p {
+        font-size: 1.3em;
+        font-weight: 600;
+        cursor: pointer;
+        color: #F6F3E7;
+        opacity: 1;
 
-    p {
-      font-size: 1.3em;
-      font-weight: 600;
-      cursor: pointer;
+        &.selected {
+          text-decoration: underline;
+        }
 
-      &.selected {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
-      &:hover {
-        text-decoration: underline;
-      }
+      text-decoration: none
     }
 
     i {
       cursor: pointer;
       font-size: 20px;
+      color: #F6F3E7;
+      opacity: 1;
 
       &:hover {
         font-size: 25px;

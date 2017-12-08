@@ -6,13 +6,6 @@ export function setChannels() {
   }
 }
 
-export function selectChannel(channel) {
-  return {
-    type: 'SELECT_CHANNEL',
-    payload: channel
-  }
-}
-
 export function getMessages(channel) {
   const promise = fetch(`/api/v1/channels/${channel}/messages`, {
     credentials: "same-origin"
