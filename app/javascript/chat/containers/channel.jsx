@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getMessages } from '../actions';
 import MessageForm from '../containers/message_form.jsx'
 
-import stringToColour from '../../assets/javascript/channel.js';
+import stringToColour from '../utils/channel.js';
 import Moment from 'react-moment';
 import Emojify from 'react-emojione';
 
