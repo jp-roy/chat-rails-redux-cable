@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
-  root to: 'pages#home'
   root to: 'channels#show'
 
   namespace :api, defaults: { format: :json } do
