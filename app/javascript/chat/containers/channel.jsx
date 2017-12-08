@@ -28,12 +28,11 @@ class Channel extends Component {
   }
 
   // componentDidMount() {
-  //   const intervalId = setInterval(() => this.props.getMessages(this.props.selectedChannel), 3000);
-  //   this.setState({ intervalId: intervalId });
+  //   this.props.receiveMessages
   // }
 
   // componentWillUnmount() {
-  //   clearInterval(this.state.intervalId);
+  //   this.props.unsuscribeFromActionCable
   // }
 
   componentDidUpdate() {

@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import { selectChannel } from '../actions';
+import { createChannel } from '../actions';
 
 class Channels extends Component {
+  newChannel = () => {
+    const name = prompt("What is the new channel name ?");
+    this.props.createChannel(name);
+  }
 
   render() {
     return (
@@ -19,7 +23,7 @@ class Channels extends Component {
             </p>
           </Link>
         )}
-        <i className="fa fa-plus-square" aria-hidden="true"></i>
+        <i className="fa fa-plus-square" aria-hidden="true" onClick={this.newChannel}></i>
       </div>
     );
   }
@@ -33,7 +37,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { selectChannel },
+    { createChannel },
     dispatch
   );
 }
