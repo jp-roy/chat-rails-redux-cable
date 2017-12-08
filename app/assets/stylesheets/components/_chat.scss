@@ -1,0 +1,117 @@
+body {
+  font-family: Helvetica;
+}
+.app {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  height: calc(100vh - 40px);
+
+  .logo {
+    background-color: #0081A2;
+    flex: 0 0 80px;
+    height: 100%;
+    text-align: center;
+
+    &:before {
+      content: '\F086';
+      position: absolute;
+      top: 25px;
+      left: 20px;
+      font-family: FontAwesome;
+      font-size: 40px;
+      color: #F6F3E7;
+    }
+  }
+
+  .channels {
+    padding-left: 15px;
+    background-color: #0081A2;
+    opacity: 0.85;
+    flex: 0 0 200px;
+    height: 100%;
+    color: #F6F3E7;
+
+    h1 {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 1.3em;
+      font-weight: 600;
+      cursor: pointer;
+
+      &.selected {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    i {
+      cursor: pointer;
+      font-size: 20px;
+
+      &:hover {
+        font-size: 25px;
+      }
+    }
+  }
+
+  .channel {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    background-color: #F6F3E7;
+    flex-grow: 1;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: #266778;
+      flex: 0 0 40px;
+    }
+
+    .message-list {
+      flex-grow: 1;
+      overflow-x: auto;
+
+      .message {
+        margin-bottom: 10px;
+
+        .header {
+          font-size: 1.3em;
+
+          .author {
+          }
+
+          .time {
+            font-size: 0.8em;
+            opacity: 0.7;
+          }
+        }
+
+        .content {
+          font-size: 1.3em;
+        }
+      }
+    }
+
+    .message-form {
+      flex: 0 0 50px;
+
+      .form-search {
+        height: 50px;
+        border-radius: 10px;
+        font-size: 1.3em;
+      }
+    }
+
+
+  }
+}
