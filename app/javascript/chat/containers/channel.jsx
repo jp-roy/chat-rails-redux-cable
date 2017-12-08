@@ -62,7 +62,7 @@ class Channel extends Component {
             </div>
           )}
         </div>
-        <MessageForm />
+        <MessageForm selectedChannel={this.props.selectedChannel} />
       </div>
     );
   }

@@ -6,6 +6,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
   end
 
   def create
+    binding.pry
   end
 
   private
