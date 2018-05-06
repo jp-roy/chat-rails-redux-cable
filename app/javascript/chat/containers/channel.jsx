@@ -8,13 +8,11 @@ import MessageForm from '../containers/message_form.jsx'
 import stringToColour from '../utils/channel.js';
 import Moment from 'react-moment';
 import Emojify from 'react-emojione';
+import cable from "actioncable";
 
 class Channel extends Component {
   constructor(props){
     super(props);
-    this.state = ({
-      intervalId: null
-    });
   }
 
   componentWillMount() {
@@ -27,19 +25,23 @@ class Channel extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.props.receiveMessages
-  // }
+  componentDidMount() {
+  }
 
-  // componentWillUnmount() {
-  //   this.props.unsuscribeFromActionCable
-  // }
+  componentWillUnmount() {
+    // this.props.unsuscribeFromActionCable
+  }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
   }
 
   render() {
+    App.messages = App.cable.subscriptions.create(
+      { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
+      { received: (data) => console.log(data) }
+    )
+
     return (
       <div className="channel">
         <div className="message-list" ref={(div) => { this.messageList = div; }}>
