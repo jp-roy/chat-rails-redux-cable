@@ -7,15 +7,10 @@ class Message < ApplicationRecord
   def broadcast_message
     ActionCable.server.broadcast(
       "channel_#{self.channel.name}",
-      message: self.to_json,
+      id: self.id,
+      author: self.user.username,
       content: self.content,
-      channel: self.channel,
-      id: self.id
+      created_at: self.created_at,
     )
   end
 end
-
-
-
-
-

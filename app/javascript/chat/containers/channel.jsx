@@ -13,6 +13,7 @@ import cable from "actioncable";
 class Channel extends Component {
   constructor(props){
     super(props);
+    this.updateMessageState = this.updateMessageState.bind(this);
   }
 
   componentWillMount() {
@@ -36,10 +37,40 @@ class Channel extends Component {
     this.messageList.scrollTop = this.messageList.scrollHeight;
   }
 
+  updateMessageState = (data) => {
+    debugger
+    console.log(data)
+  }
+
+
+  // updateCommentState(comment) {
+  //     let comments = [...this.state.comments]
+  //     let commentCopy = comments.slice()
+  //     let commentIndex = commentCopy.findIndex((element, index, array) => element.id == comment.id)
+  // if (commentIndex == -1) {
+  //       commentCopy.push(comment)
+  //     } else {
+  //       commentCopy[commentIndex] = comment
+  //     }
+  // this.setState( {comments: commentCopy} )
+  //   }
+
+  //   render() {
+  //     const propState = this
+  //     App.comments = App.cable.subscriptions.create({
+  //       channel: 'CommentsChannel',
+  //       thread: `${this.props.threadId}`
+  //     }, {
+  //       received: function(data) {
+  //       propState.updateCommentState(data)
+  //     }
+  //   });
+
+
   render() {
     App.messages = App.cable.subscriptions.create(
       { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
-      { received: (data) => console.log(data) }
+      { received: (data) => this.updateMessageState(data) }
     )
 
     return (
