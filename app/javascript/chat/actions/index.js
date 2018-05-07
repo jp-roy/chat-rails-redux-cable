@@ -60,8 +60,6 @@ export function createChannel(name) {
     credentials: "same-origin"
   }).then(r => r.json());
 
-  debugger
-
   return {
     type: 'CREATE_CHANNEL',
     payload: promise

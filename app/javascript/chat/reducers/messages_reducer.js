@@ -5,9 +5,10 @@ export default function(state = null, action) {
     case 'DISPLAY_CABLE_MESSAGE':
       return action.payload;
     case 'SEND_MESSAGE':
-      let newState = state.slice(0);
-      newState.push(action.payload);
-      return newState;
+      // let newState = state.slice(0);
+      // newState.push(action.payload);
+      // return newState;
+      return state;
     default:
       return state;
   }

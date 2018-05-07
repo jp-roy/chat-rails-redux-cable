@@ -18,6 +18,11 @@ class Channel extends Component {
 
   componentWillMount() {
     this.props.getMessages(this.props.selectedChannel);
+
+    App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
+      { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
+      { received: (data) => this.updateMessageState(data) }
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,18 +35,16 @@ class Channel extends Component {
   }
 
   componentWillUnmount() {
-    App.messages.unsuscribe();
+    App['channel_${this.props.selectedChannel}'].unsuscribe();
   }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
-    App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
-      { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
-      { received: (data) => this.updateMessageState(data) }
-    )
   }
 
   updateMessageState = (message) => {
+    console.log(this.messageList);
+    console.log("updateMessageState");
     let messages = this.props.messages.slice(0)
     let messageIndex = messages.findIndex((element, index, array) => element.id == message.id)
     if (messageIndex == -1) {
