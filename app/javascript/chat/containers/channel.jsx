@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getMessages } from '../actions';
+import { getMessages, displayCableMessage } from '../actions';
 import MessageForm from '../containers/message_form.jsx'
 
 import stringToColour from '../utils/channel.js';
@@ -30,49 +30,27 @@ class Channel extends Component {
   }
 
   componentWillUnmount() {
-    // this.props.unsuscribeFromActionCable
+    App.messages.unsuscribe();
   }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
-  }
-
-  updateMessageState = (data) => {
-    debugger
-    console.log(data)
-  }
-
-
-  // updateCommentState(comment) {
-  //     let comments = [...this.state.comments]
-  //     let commentCopy = comments.slice()
-  //     let commentIndex = commentCopy.findIndex((element, index, array) => element.id == comment.id)
-  // if (commentIndex == -1) {
-  //       commentCopy.push(comment)
-  //     } else {
-  //       commentCopy[commentIndex] = comment
-  //     }
-  // this.setState( {comments: commentCopy} )
-  //   }
-
-  //   render() {
-  //     const propState = this
-  //     App.comments = App.cable.subscriptions.create({
-  //       channel: 'CommentsChannel',
-  //       thread: `${this.props.threadId}`
-  //     }, {
-  //       received: function(data) {
-  //       propState.updateCommentState(data)
-  //     }
-  //   });
-
-
-  render() {
-    App.messages = App.cable.subscriptions.create(
+    App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
       { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
       { received: (data) => this.updateMessageState(data) }
     )
+  }
 
+  updateMessageState = (message) => {
+    let messages = this.props.messages.slice(0)
+    let messageIndex = messages.findIndex((element, index, array) => element.id == message.id)
+    if (messageIndex == -1) {
+      messages.push(message)
+      this.props.displayCableMessage(messages)
+    }
+  }
+
+  render() {
     return (
       <div className="channel">
         <div className="message-list" ref={(div) => { this.messageList = div; }}>
@@ -108,7 +86,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { getMessages },
+    { getMessages, displayCableMessage },
     dispatch
   );
 }
