@@ -13,7 +13,8 @@ import cable from "actioncable";
 class Channel extends Component {
   constructor(props){
     super(props);
-    this.updateMessageState = this.updateMessageState.bind(this);
+    // this.createCableSubscription = this.createCableSubscription.bind(this);
+    // this.checkNewCableMessage = this.checkNewCableMessage.bind(this);
   }
 
   componentWillMount() {
@@ -36,17 +37,21 @@ class Channel extends Component {
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
+    this.createCableSubscription();
+  }
+
+  createCableSubscription = () => {
     App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
       { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
-      { received: (data) => this.updateMessageState(data) }
+      { received: (data) => this.checkNewCableMessage(data) }
     )
   }
 
-  updateMessageState = (message) => {
+  checkNewCableMessage = (data) => {
     let messages = this.props.messages.slice(0)
-    let messageIndex = messages.findIndex((element, index, array) => element.id == message.id)
+    let messageIndex = messages.findIndex((element, index, array) => element.id == data.id)
     if (messageIndex == -1) {
-      this.props.displayCableMessage(message)
+      this.props.displayCableMessage(data)
     }
   }
 
