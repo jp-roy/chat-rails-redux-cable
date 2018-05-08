@@ -7,4 +7,8 @@ class User < ApplicationRecord
   validates :username, :email, presence: true
 
   has_many :messages
+
+  def admin?
+    true
+  end
 end
