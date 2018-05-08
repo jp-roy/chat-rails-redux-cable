@@ -18,21 +18,24 @@ class Channel extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedChannel !== nextProps.selectedChannel) {
       this.props.getMessages(nextProps.selectedChannel);
+      // App.cableMessages.unsubscribe();
     };
-  }
-
-  componentWillUnmount() {
-    console.log("unsubscribing ${this.props.selectedChannel}");
-    App['channel_${this.props.selectedChannel}'].unsubscribe();
   }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
+    // DO NOT OPEN SUBSCRIPTIONS ALL THE TIME
+    // ONLY CREATE ONE DURING THE LIFETIME OF THE COMPONENT AND CLOSE IT WHEN UNMOUNTING
+    // LOOK FOR :
+    // App.cable.subscriptions.subscriptions
+    // let cableSubscription = App.cable.subscriptions.subscriptions[i]
+    // App.cable.subscriptions.remove(cableSubscription)
+
     this.createCableSubscription();
   }
 
   createCableSubscription = () => {
-    App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
+    App.cable.subscriptions.create(
       { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
       { received: (data) => this.checkNewCableMessage(data) }
     )
