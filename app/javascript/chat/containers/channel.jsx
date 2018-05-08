@@ -2,41 +2,47 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getMessages } from '../actions';
+import { getMessages, displayCableMessage } from '../actions';
 import MessageForm from '../containers/message_form.jsx'
 
 import stringToColour from '../utils/channel.js';
 import Moment from 'react-moment';
 import Emojify from 'react-emojione';
+import cable from "actioncable";
 
 class Channel extends Component {
-  constructor(props){
-    super(props);
-    this.state = ({
-      intervalId: null
-    });
-  }
-
   componentWillMount() {
     this.props.getMessages(this.props.selectedChannel);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedChannel !== nextProps.selectedChannel) {
-      this.props.getMessages(nextProps.selectedChannel)
+      this.props.getMessages(nextProps.selectedChannel);
     };
   }
 
-  // componentDidMount() {
-  //   this.props.receiveMessages
-  // }
-
-  // componentWillUnmount() {
-  //   this.props.unsuscribeFromActionCable
-  // }
+  componentWillUnmount() {
+    App['channel_${this.props.selectedChannel}'].unsubscribe();
+  }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
+    this.createCableSubscription();
+  }
+
+  createCableSubscription = () => {
+    App['channel_${this.props.selectedChannel}'] = App.cable.subscriptions.create(
+      { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
+      { received: (data) => this.checkNewCableMessage(data) }
+    )
+  }
+
+  checkNewCableMessage = (data) => {
+    let messages = this.props.messages.slice(0)
+    let messageIndex = messages.findIndex((element, index, array) => element.id == data.id)
+    if (messageIndex == -1) {
+      this.props.displayCableMessage(data)
+    }
   }
 
   render() {
@@ -75,7 +81,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { getMessages },
+    { getMessages, displayCableMessage },
     dispatch
   );
 }

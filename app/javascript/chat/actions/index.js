@@ -1,4 +1,11 @@
 // TODO: add and export your own actions
+export function displayCableMessage(message) {
+  return {
+    type: 'DISPLAY_CABLE_MESSAGE',
+    payload: message
+  };
+}
+
 export function getMessages(channel) {
   const promise = fetch(`/api/v1/channels/${channel}/messages`, {
     credentials: "same-origin"
@@ -12,7 +19,8 @@ export function getMessages(channel) {
 
 export function sendMessage(content, channel) {
   const body = {
-    content: content
+    content: content,
+    channel: channel
   };
 
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;

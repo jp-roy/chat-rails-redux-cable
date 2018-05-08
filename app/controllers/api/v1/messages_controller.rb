@@ -2,7 +2,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
   before_action :set_channel
 
   def index
-    @messages = Message.joins(:user).where(channel: @channel).order(created_at: :asc)
+    @messages = Message.includes(:user).where(channel: @channel).order(created_at: :asc)
   end
 
   def create
