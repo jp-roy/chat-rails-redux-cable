@@ -45,9 +45,7 @@ class Channel extends Component {
   checkNewCableMessage = (data) => {
     let messages = this.props.messages.slice(0)
     let messageIndex = messages.findIndex(message => message.id == data.id)
-    if (messageIndex == -1) {
-      this.props.displayCableMessage(data)
-    }
+    if (messageIndex == -1) { this.props.displayCableMessage(data) }
   }
 
   render() {

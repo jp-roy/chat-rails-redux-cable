@@ -1,5 +1,5 @@
 {
-  "name": "chat-rails-redux",
+  "name": "chat-rails-redux-cable",
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
