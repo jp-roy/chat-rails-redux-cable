@@ -22,6 +22,7 @@ class Channel extends Component {
   }
 
   componentWillUnmount() {
+    console.log("unsubscribing ${this.props.selectedChannel}");
     App['channel_${this.props.selectedChannel}'].unsubscribe();
   }
 
