@@ -11,20 +11,13 @@ import Emojify from 'react-emojione';
 import cable from "actioncable";
 
 class Channel extends Component {
-  constructor(props){
-    super(props);
-    // this.createCableSubscription = this.createCableSubscription.bind(this);
-    // this.checkNewCableMessage = this.checkNewCableMessage.bind(this);
-  }
-
   componentWillMount() {
     this.props.getMessages(this.props.selectedChannel);
-
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedChannel !== nextProps.selectedChannel) {
-      this.props.getMessages(nextProps.selectedChannel)
+      this.props.getMessages(nextProps.selectedChannel);
     };
   }
 
@@ -32,7 +25,7 @@ class Channel extends Component {
   }
 
   componentWillUnmount() {
-    App['channel_${this.props.selectedChannel}'].unsuscribe();
+    App['channel_${this.props.selectedChannel}'].unsubscribe();
   }
 
   componentDidUpdate() {
