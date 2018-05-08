@@ -15,35 +15,36 @@ class Channel extends Component {
     this.props.getMessages(this.props.selectedChannel);
   }
 
+  componentWillUnmount() {
+    App.chatChannel.unsubscribe();
+  }
+
+  componentDidMount() {
+    this.createCableSubscription(this.props.selectedChannel);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedChannel !== nextProps.selectedChannel) {
       this.props.getMessages(nextProps.selectedChannel);
-      // App.cableMessages.unsubscribe();
+      App.chatChannel.unsubscribe();
+      this.createCableSubscription(nextProps.selectedChannel);
     };
   }
 
   componentDidUpdate() {
     this.messageList.scrollTop = this.messageList.scrollHeight;
-    // DO NOT OPEN SUBSCRIPTIONS ALL THE TIME
-    // ONLY CREATE ONE DURING THE LIFETIME OF THE COMPONENT AND CLOSE IT WHEN UNMOUNTING
-    // LOOK FOR :
-    // App.cable.subscriptions.subscriptions
-    // let cableSubscription = App.cable.subscriptions.subscriptions[i]
-    // App.cable.subscriptions.remove(cableSubscription)
-
-    this.createCableSubscription();
   }
 
-  createCableSubscription = () => {
-    App.cable.subscriptions.create(
-      { channel: 'ChatChannel', channel_id: this.props.selectedChannel },
+  createCableSubscription = (channel_id) => {
+    App.chatChannel = App.cable.subscriptions.create(
+      { channel: 'ChatChannel', channel_id: channel_id },
       { received: (data) => this.checkNewCableMessage(data) }
     )
   }
 
   checkNewCableMessage = (data) => {
     let messages = this.props.messages.slice(0)
-    let messageIndex = messages.findIndex((element, index, array) => element.id == data.id)
+    let messageIndex = messages.findIndex(message => message.id == data.id)
     if (messageIndex == -1) {
       this.props.displayCableMessage(data)
     }
