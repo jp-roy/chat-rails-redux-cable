@@ -3,11 +3,10 @@ export default function(state = null, action) {
     case 'GET_MESSAGES':
       return action.payload;
     case 'DISPLAY_CABLE_MESSAGE':
-      return action.payload;
+      let newState = state.slice(0);
+      newState.push(action.payload);
+      return newState;
     case 'SEND_MESSAGE':
-      // let newState = state.slice(0);
-      // newState.push(action.payload);
-      // return newState;
       return state;
     default:
       return state;
