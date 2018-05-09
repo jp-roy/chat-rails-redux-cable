@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
+  config.action_mailer.default_url_options = { host: "http://grazr-chat.herokuapp.com" }
   config.action_cable.url = "ws://grazr-chat.herokuapp.com/cable"
   # Settings specified here will take precedence over those in config/application.rb.
 
