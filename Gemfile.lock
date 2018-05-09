@@ -208,7 +208,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (= 5.1.4)
-  redis (~> 3.0)
+  redis
   sass-rails
   sidekiq
   sidekiq-failures (~> 1.0)
@@ -223,4 +223,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.7
+   1.16.1
