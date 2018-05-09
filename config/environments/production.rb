@@ -1,6 +1,8 @@
 Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://grazr-chat.herokuapp.com" }
-  config.action_cable.url = "ws://grazr-chat.herokuapp.com/cable"
+  config.action_cable.url = "wss://grazr-chat.herokuapp.com/cable"
+  config.web_socket_server_url = "wss://grazr-chat.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://grazr-chat.herokuapp.com', 'http://grazr-chat.herokuapp.com']
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
